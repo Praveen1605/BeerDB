@@ -1,0 +1,89 @@
+<section *ngIf="!loading">
+<p-table #dt1 [value]="beerDetails" dataKey="id"
+        [rows]="20" [showCurrentPageReport]="true" styleClass="p-datatable-customers p-datatable-gridlines"
+        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [globalFilterFields]="['name']">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search By Name" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                        ID 
+                    </div>
+                </th>
+                <th>
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                        Image 
+                    </div>
+                </th>
+                <th>
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                        Name 
+                        <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                        
+                    </div>
+                </th>
+                <th>
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                        Style
+                    </div>
+                </th>
+                <th>
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                        Ounces
+                    </div>
+                </th>
+                <th>
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                        Abv
+                    </div>
+                </th>
+                <th>
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                        Ibv
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-beerDetails>
+            <tr>
+                <td>
+                    {{beerDetails.id}}
+                </td>
+                <td>
+                    <img [src]="beerDetails.image" [alt]="beerDetails.name" width="100" class="p-shadow-4" />
+                </td>
+                <td>
+                    {{beerDetails.name}}
+                </td>
+                <td>
+                    {{beerDetails.style}}
+                </td>
+                <td>
+                    {{beerDetails.ounces}}
+                </td>
+                <td>
+                    {{beerDetails.abv}}
+                </td>
+                <td >
+                    {{beerDetails.ibu}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" *ngIf="beerDetails && beerDetails.length === 0">
+            <tr>
+                <td colspan="7">No Beer Brand found.</td>
+            </tr>
+        </ng-template>
+</p-table>
+</section>
+<section *ngIf="loading">
+    <p-progressSpinner></p-progressSpinner>
+</section>
